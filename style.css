@@ -1,36 +1,20 @@
 :root {
-    --bg-color: #0f172a;
-    --text-color: #f8fafc;
-    --board-bg: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-    --board-border: #38bdf8;
-    --score-bg: rgba(30, 41, 59, 0.7);
-    --score-border: rgba(255, 255, 255, 0.05);
-    --message-bg: rgba(15, 23, 42, 0.85);
-    --text-muted: #94a3b8;
-    --btn-bg: #38bdf8;
-    --btn-hover: #0ea5e9;
-    --btn-text: #0f172a;
+    --bg-color: #f7f7f7;
+    --text-color: #535353;
+    --board-line: #535353;
 }
 
-body.light-theme {
-    --bg-color: #f1f5f9;
-    --text-color: #1e293b;
-    --board-bg: linear-gradient(180deg, #e2e8f0 0%, #f1f5f9 100%);
-    --board-border: #0284c7;
-    --score-bg: rgba(255, 255, 255, 0.8);
-    --score-border: rgba(0, 0, 0, 0.05);
-    --message-bg: rgba(241, 245, 249, 0.85);
-    --text-muted: #64748b;
-    --btn-bg: #0284c7;
-    --btn-hover: #0369a1;
-    --btn-text: #ffffff;
+body.dark-theme {
+    --bg-color: #202124;
+    --text-color: #ffffff;
+    --board-line: #535353;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -42,59 +26,42 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.2s;
+    overflow: hidden;
 }
 
 .game-container {
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
     padding: 20px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
+/* Qabxii (Score) akka Google */
 .score-board {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--score-bg);
-    backdrop-filter: blur(10px);
-    padding: 12px 24px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    font-size: 18px;
-    font-weight: 600;
-    border: 1px solid var(--score-border);
-    transition: background 0.3s, border 0.3s;
+    gap: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: var(--text-color);
 }
 
-.theme-btn {
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: transform 0.2s;
-}
-
-.theme-btn:hover {
-    transform: scale(1.1);
-}
-
+/* Tiyaatira Taphaa */
 .game-board {
     position: relative;
     width: 100%;
-    height: 250px;
-    background: var(--board-bg);
-    border-radius: 16px;
+    height: 150px;
     overflow: hidden;
-    border-bottom: 3px solid var(--board-border);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid var(--board-line);
     touch-action: manipulation;
-    transition: background 0.3s, border-color 0.3s;
+    cursor: pointer;
 }
 
-/* شكل الديناصور باستخدام الصورة المرفقة */
+/* Dino */
 .dino {
     position: absolute;
     bottom: 0;
@@ -104,102 +71,93 @@ body {
     background-image: url('dino.png');
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center;
+    z-index: 2;
 }
 
-/* حركة القفز */
+/* Qilleensa/Utubaa (Jump) */
 .jump {
-    animation: jumpAnimation 0.6s ease-out;
+    animation: jumpAnimation 0.42s cubic-bezier(0.45, 0, 0.55, 1);
 }
 
 @keyframes jumpAnimation {
     0% { bottom: 0; }
-    50% { bottom: 110px; }
+    50% { bottom: 85px; }
     100% { bottom: 0; }
 }
 
-/* شكل الصبار (العائق) باستخدام الصورة المرفقة */
+/* Cactus */
 .cactus {
     position: absolute;
     bottom: 0;
-    left: 700px;
-    width: 38px;
-    height: 48px;
+    left: 800px;
+    width: 34px;
+    height: 50px;
     background-image: url('cactus.png');
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center;
+    z-index: 1;
 }
 
-/* حركة تحرك الصبار */
 .moving-cactus {
-    animation: moveCactus 1.8s infinite linear;
+    animation: moveCactus 1.4s infinite linear;
 }
 
 @keyframes moveCactus {
-    0% { left: 700px; }
+    0% { left: 800px; }
     100% { left: -50px; }
 }
 
-/* رسالة البداية والخسارة */
+/* Ergaa Taphaa (Game Over / Restart Icon) */
 .game-message {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--message-bg);
-    backdrop-filter: blur(5px);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 12px;
     z-index: 10;
-    transition: background 0.3s;
-}
-
-.game-message h2 {
-    font-size: 26px;
-    color: var(--text-color);
-}
-
-.game-message p {
-    font-size: 14px;
-    color: var(--text-muted);
 }
 
 .game-message button {
-    background-color: var(--btn-bg);
-    color: var(--btn-text);
+    width: 36px;
+    height: 32px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32"><path fill="%23535353" d="M18 5V0L12 6l6 6V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H8c0 5.52 4.48 10 10 10s10-4.48 10-10-4.48-10-10-10zm-2 10h2v-4h-2v4zm0 6h2v-2h-2v2z"/></svg>');
+    background-color: transparent;
     border: none;
-    padding: 10px 24px;
-    font-size: 16px;
-    font-weight: 700;
-    border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
 }
 
-.game-message button:hover {
-    background-color: var(--btn-hover);
-    transform: translateY(-2px);
+body.dark-theme .game-message button {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32"><path fill="%23ffffff" d="M18 5V0L12 6l6 6V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H8c0 5.52 4.48 10 10 10s10-4.48 10-10-4.48-10-10-10zm-2 10h2v-4h-2v4zm0 6h2v-2h-2v2z"/></svg>');
 }
 
 .hidden {
     display: none !important;
 }
 
-/* توافق الشاشات الصغيرة */
-@media (max-width: 600px) {
-    .game-container {
-        padding: 10px;
-    }
-    .game-board {
-        height: 220px;
-    }
-    .score-board {
-        font-size: 15px;
-        padding: 10px 16px;
-    }
+/* Theebii Jijjiiruu (Floating Theme Button gadi fageenya fuulichaatti argamu) */
+.floating-theme-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--text-color);
+    color: var(--bg-color);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: transform 0.2s;
+}
+
+.floating-theme-btn:hover {
+    transform: scale(1.1);
 }

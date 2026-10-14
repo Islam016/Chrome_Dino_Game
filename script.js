@@ -59,8 +59,11 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-// التحكم باللمس والنقر على مسرح اللعبة للموبايل والكمبيوتر
-gameBoard.addEventListener("click", () => {
+// توسيع مساحة اللمس والنقر لتشمل مسرح اللعبة بالكامل للموبايل والكمبيوتر
+gameBoard.addEventListener("click", (e) => {
+    // لو تم النقر مباشرة على زر البداية، نتجاهله هنا لكي لا يتداخل مع حدث الزر نفسه
+    if (e.target === startBtn) return;
+    
     if (!isPlaying) {
         startGame();
     } else {
@@ -69,7 +72,9 @@ gameBoard.addEventListener("click", () => {
 });
 
 gameBoard.addEventListener("touchstart", (e) => {
+    if (e.target === startBtn) return;
     e.preventDefault();
+    
     if (!isPlaying) {
         startGame();
     } else {
@@ -108,8 +113,8 @@ function startGame() {
         let dinoBottom = parseInt(window.getComputedStyle(dino).getPropertyValue("bottom"));
         let cactusLeft = parseInt(window.getComputedStyle(cactus).getPropertyValue("left"));
 
-        // شروط الاصطدام بدقة
-        if (cactusLeft > 25 && cactusLeft < 55 && dinoBottom <= 35) {
+        // شروط الاصطدام بدقة مع أحجام صور البكسل الجديدة
+        if (cactusLeft > 25 && cactusLeft < 60 && dinoBottom <= 38) {
             gameOver();
         }
     }, 10);

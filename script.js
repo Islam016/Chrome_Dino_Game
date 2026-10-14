@@ -14,8 +14,9 @@ updateHighScoreDisplay();
 let isPlaying = false;
 let scoreInterval;
 let checkCollisionInterval;
+let gameSpeed = 1.4; // السرعة الابتدائية (بالثانية)
 
-// Jijjiirraa Theebii (Dark/Light Mode)
+// تبديل الثيم (Dark / Light)
 themeToggleBtn.addEventListener("click", () => {
     if (document.body.classList.contains("dark-theme")) {
         document.body.classList.replace("dark-theme", "light-theme");
@@ -42,7 +43,7 @@ function updateScoreDisplay() {
     scoreDisplay.textContent = String(score).padStart(5, '0');
 }
 
-// To'annoo Qabiyyee (Touch & Keyboard Controls)
+// التحكم باللمس والكيبورد في أي مكان بالصفحة
 document.body.addEventListener("click", (e) => {
     handleAction(e);
 });
@@ -83,24 +84,39 @@ function startGame() {
     
     isPlaying = true;
     score = 0;
+    gameSpeed = 1.4; // إعادة تعيين السرعة عند بداية اللعبة
     updateScoreDisplay();
     gameMessage.classList.add("hidden");
 
+    applyGameSpeed();
     cactus.classList.add("moving-cactus");
 
+    // عداد النقاط وزيادة السرعة تدريجياً
     scoreInterval = setInterval(() => {
         score++;
         updateScoreDisplay();
+
+        // كلما زاد اللاعب 100 نقطة، تزيد السرعة (يقل زمن الأنيميشن)
+        if (score % 100 === 0 && gameSpeed > 0.6) {
+            gameSpeed -= 0.12;
+            applyGameSpeed();
+        }
     }, 150);
 
     checkCollisionInterval = setInterval(() => {
         let dinoBottom = parseInt(window.getComputedStyle(dino).getPropertyValue("bottom"));
         let cactusLeft = parseInt(window.getComputedStyle(cactus).getPropertyValue("left"));
 
+        // فحص الاصطدام بدقة على خط الأرض
         if (cactusLeft > 25 && cactusLeft < 60 && dinoBottom <= 38) {
             gameOver();
         }
     }, 10);
+}
+
+// تطبيق السرعة ديناميكياً على الـ CSS Animation
+function applyGameSpeed() {
+    cactus.style.animationDuration = `${gameSpeed}s`;
 }
 
 function gameOver() {

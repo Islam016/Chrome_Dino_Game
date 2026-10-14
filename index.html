@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة الديناصور الكلاسيكية | Dino Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- شريط المعلومات العلوي -->
+        <div class="score-board">
+            <div class="score-item">النقاط: <span id="score">0</span></div>
+            <div class="score-item">أعلى نتيجة: <span id="high-score">0</span></div>
+        </div>
+
+        <!-- مسرح اللعبة -->
+        <div class="game-board" id="gameBoard">
+            <!-- ديناصور -->
+            <div class="dino" id="dino"></div>
+            <!-- عائق (صبار) -->
+            <div class="cactus" id="cactus"></div>
+            
+            <!-- شاشة البداية / إعادة المحاولة -->
+            <div class="game-message" id="gameMessage">
+                <h2>لعبة الديناصور</h2>
+                <p>اضغط مسافة (Space) أو انقر هنا للبدء والقفز</p>
+                <button id="startBtn">ابدأ اللعبة</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

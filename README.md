@@ -4,8 +4,7 @@
 
 لعبة ديناصور كروم الشهيرة بتصميم عصري نظيف (Clean Minimalist / Dark Mode)، مبنية باستخدام HTML5, CSS3, و Vanilla JavaScript.
 
-[استعرض اللعبة أونلاين](#) · [الإبلاغ عن مشكلة](../../issues)
-
+[استعرض اللعبة أونلاين](https://islam016.github.io/Chrome_Dino_Game/) · [الإبلاغ عن مشكلة](https://github.com/Islam016/Chrome_Dino_Game/issues)
 </div>
 
 ---

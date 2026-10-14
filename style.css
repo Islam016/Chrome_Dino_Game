@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: #0f172a;
+    color: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+    text-align: center;
+}
+
+.score-board {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.game-board {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    border-bottom: 3px solid #38bdf8;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* شكل الديناصور */
+.dino {
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+    width: 40px;
+    height: 45px;
+    background-color: #38bdf8;
+    border-radius: 8px 8px 4px 4px;
+    transition: background-color 0.3s;
+}
+
+/* حركة القفز */
+.jump {
+    animation: jumpAnimation 0.6s ease-out;
+}
+
+@keyframes jumpAnimation {
+    0% { bottom: 0; }
+    50% { bottom: 110px; }
+    100% { bottom: 0; }
+}
+
+/* شكل الصبار (العائق) */
+.cactus {
+    position: absolute;
+    bottom: 0;
+    left: 700px;
+    width: 25px;
+    height: 40px;
+    background-color: #f43f5e;
+    border-radius: 6px 6px 0 0;
+}
+
+/* حركة تحرك الصبار */
+.moving-cactus {
+    animation: moveCactus 1.8s infinite linear;
+}
+
+@keyframes moveCactus {
+    0% { left: 700px; }
+    100% { left: -40px; }
+}
+
+/* رسالة البداية والخسارة */
+.game-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+}
+
+.game-message h2 {
+    font-size: 26px;
+    color: #f8fafc;
+}
+
+.game-message p {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.game-message button {
+    background-color: #38bdf8;
+    color: #0f172a;
+    border: none;
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.game-message button:hover {
+    background-color: #0ea5e9;
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none !important;
+}

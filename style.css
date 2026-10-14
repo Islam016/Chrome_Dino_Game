@@ -1,17 +1,52 @@
+:root {
+    --bg-color: #0f172a;
+    --text-color: #f8fafc;
+    --board-bg: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    --board-border: #38bdf8;
+    --score-bg: rgba(30, 41, 59, 0.7);
+    --score-border: rgba(255, 255, 255, 0.05);
+    --dino-color: #38bdf8;
+    --cactus-color: #f43f5e;
+    --message-bg: rgba(15, 23, 42, 0.85);
+    --text-muted: #94a3b8;
+    --btn-bg: #38bdf8;
+    --btn-hover: #0ea5e9;
+    --btn-text: #0f172a;
+}
+
+body.light-theme {
+    --bg-color: #f1f5f9;
+    --text-color: #1e293b;
+    --board-bg: linear-gradient(180deg, #e2e8f0 0%, #f1f5f9 100%);
+    --board-border: #0284c7;
+    --score-bg: rgba(255, 255, 255, 0.8);
+    --score-border: rgba(0, 0, 0, 0.05);
+    --dino-color: #0284c7;
+    --cactus-color: #e11d48;
+    --message-bg: rgba(241, 245, 249, 0.85);
+    --text-muted: #64748b;
+    --btn-bg: #0284c7;
+    --btn-hover: #0369a1;
+    --btn-text: #ffffff;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Cairo', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 body {
-    background-color: #0f172a;
-    color: #f8fafc;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .game-container {
@@ -24,25 +59,43 @@ body {
 .score-board {
     display: flex;
     justify-content: space-between;
-    background: rgba(30, 41, 59, 0.7);
+    align-items: center;
+    background: var(--score-bg);
     backdrop-filter: blur(10px);
     padding: 12px 24px;
     border-radius: 12px;
     margin-bottom: 15px;
     font-size: 18px;
     font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--score-border);
+    transition: background 0.3s, border 0.3s;
+}
+
+.theme-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: transform 0.2s;
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
 }
 
 .game-board {
     position: relative;
     width: 100%;
     height: 250px;
-    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    background: var(--board-bg);
     border-radius: 16px;
     overflow: hidden;
-    border-bottom: 3px solid #38bdf8;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    border-bottom: 3px solid var(--board-border);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+    touch-action: manipulation;
+    transition: background 0.3s, border-color 0.3s;
 }
 
 /* شكل الديناصور */
@@ -52,7 +105,7 @@ body {
     left: 40px;
     width: 40px;
     height: 45px;
-    background-color: #38bdf8;
+    background-color: var(--dino-color);
     border-radius: 8px 8px 4px 4px;
     transition: background-color 0.3s;
 }
@@ -75,8 +128,9 @@ body {
     left: 700px;
     width: 25px;
     height: 40px;
-    background-color: #f43f5e;
+    background-color: var(--cactus-color);
     border-radius: 6px 6px 0 0;
+    transition: background-color 0.3s;
 }
 
 /* حركة تحرك الصبار */
@@ -96,7 +150,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 23, 42, 0.85);
+    background: var(--message-bg);
     backdrop-filter: blur(5px);
     display: flex;
     flex-direction: column;
@@ -104,35 +158,50 @@ body {
     align-items: center;
     gap: 12px;
     z-index: 10;
+    transition: background 0.3s;
 }
 
 .game-message h2 {
     font-size: 26px;
-    color: #f8fafc;
+    color: var(--text-color);
 }
 
 .game-message p {
     font-size: 14px;
-    color: #94a3b8;
+    color: var(--text-muted);
 }
 
 .game-message button {
-    background-color: #38bdf8;
-    color: #0f172a;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
     border: none;
     padding: 10px 24px;
     font-size: 16px;
     font-weight: 700;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
+    transition: transform 0.2s, background-color 0.3s;
 }
 
 .game-message button:hover {
-    background-color: #0ea5e9;
+    background-color: var(--btn-hover);
     transform: translateY(-2px);
 }
 
 .hidden {
     display: none !important;
+}
+
+/* توافق الشاشات الصغيرة */
+@media (max-width: 600px) {
+    .game-container {
+        padding: 10px;
+    }
+    .game-board {
+        height: 220px;
+    }
+    .score-board {
+        font-size: 15px;
+        padding: 10px 16px;
+    }
 }

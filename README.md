@@ -33,7 +33,7 @@
 
 1. قم بنسخ المستودع (Clone) أو تحميله كملف ZIP:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/chrome-dino-game.git
+   git clone https://github.com/Islam016/Chrome_Dino_Game.git
    ```
 2. افتح المجلد باستخدام أي محرر أكواد (مثل Visual Studio Code).
 3. افتح ملف `index.html` مباشرة في متصفح الويب لديك واستمتع باللعبة!

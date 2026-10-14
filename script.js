@@ -4,6 +4,8 @@ const scoreDisplay = document.getElementById("score");
 const highScoreDisplay = document.getElementById("high-score");
 const gameMessage = document.getElementById("gameMessage");
 const startBtn = document.getElementById("startBtn");
+const gameBoard = document.getElementById("gameBoard");
+const themeToggleBtn = document.getElementById("themeToggleBtn");
 
 let score = 0;
 let highScore = localStorage.getItem("dinoHighScore") || 0;
@@ -13,10 +15,39 @@ let isPlaying = false;
 let scoreInterval;
 let checkCollisionInterval;
 
-// زر البدء
-startBtn.addEventListener("click", startGame);
+// تبديل الثيم (Dark / Light)
+themeToggleBtn.addEventListener("click", () => {
+    if (document.body.classList.contains("dark-theme")) {
+        document.body.classList.replace("dark-theme", "light-theme");
+        themeToggleBtn.textContent = "☀️";
+        localStorage.setItem("dinoTheme", "light");
+    } else {
+        document.body.classList.replace("light-theme", "dark-theme");
+        themeToggleBtn.textContent = "🌙";
+        localStorage.setItem("dinoTheme", "dark");
+    }
+});
 
-// التحكم بزر المسافة أو النقر
+// استرجاع الثيم المحفوظ
+const savedTheme = localStorage.getItem("dinoTheme");
+if (savedTheme === "light") {
+    document.body.classList.replace("dark-theme", "light-theme");
+    themeToggleBtn.textContent = "☀️";
+}
+
+// زر البدء (دعم الماوس واللمس)
+startBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    startGame();
+});
+
+startBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startGame();
+});
+
+// التحكم بزر المسافة من الكيبورد
 document.addEventListener("keydown", (e) => {
     if (e.code === "Space") {
         e.preventDefault();
@@ -28,9 +59,23 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
+// التحكم باللمس والنقر على مسرح اللعبة للموبايل والكمبيوتر
 gameBoard.addEventListener("click", () => {
-    if (isPlaying) jump();
+    if (!isPlaying) {
+        startGame();
+    } else {
+        jump();
+    }
 });
+
+gameBoard.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    if (!isPlaying) {
+        startGame();
+    } else {
+        jump();
+    }
+}, { passive: false });
 
 function jump() {
     if (!dino.classList.contains("jump")) {
@@ -63,8 +108,8 @@ function startGame() {
         let dinoBottom = parseInt(window.getComputedStyle(dino).getPropertyValue("bottom"));
         let cactusLeft = parseInt(window.getComputedStyle(cactus).getPropertyValue("left"));
 
-        // شروط الاصطدام
-        if (cactusLeft > 25 && cactusLeft < 60 && dinoBottom <= 35) {
+        // شروط الاصطدام بدقة
+        if (cactusLeft > 25 && cactusLeft < 55 && dinoBottom <= 35) {
             gameOver();
         }
     }, 10);
@@ -86,7 +131,7 @@ function gameOver() {
 
     // إظهار رسالة الخسارة
     gameMessage.querySelector("h2").textContent = "انتهت اللعبة!";
-    gameMessage.querySelector("p").textContent = `جيبت ${score} نقطة. اضغط لإعادة المحاولة`;
+    gameMessage.querySelector("p").textContent = `جيبت ${score} نقطة. اضغط أو المس الشاشة للإعادة`;
     startBtn.textContent = "العب مرة أخرى";
     gameMessage.classList.remove("hidden");
 }

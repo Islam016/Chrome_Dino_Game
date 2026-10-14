@@ -3,36 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>لعبة الديناصور الكلاسيكية | Chrome Dino Game</title>
+    <title>Chrome Dino Game - Original Style</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="dark-theme">
+<body class="light-theme">
 
     <div class="game-container">
-        <!-- شريط المعلومات العلوي -->
+        <!-- Sarara Qabxii (Score Board) akka Google -->
         <div class="score-board">
-            <div class="score-item">النقاط: <span id="score">0</span></div>
-            <div class="score-item">أعلى نتيجة: <span id="high-score">0</span></div>
-            <!-- زر تبديل الثيم -->
-            <button id="themeToggleBtn" class="theme-btn" title="تغيير الثيم">🌙</button>
+            <div class="score-item"><span id="high-score">HI 00000</span></div>
+            <div class="score-item"><span id="score">00000</span></div>
         </div>
 
-        <!-- مسرح اللعبة -->
+        <!-- Tiyaatira Taphaa (Game Board) -->
         <div class="game-board" id="gameBoard">
-            <!-- الديناصور الأصلي -->
+            <!-- Dino -->
             <div class="dino" id="dino"></div>
-            <!-- العائق (الصبار) الأصلي -->
+            <!-- Cactus -->
             <div class="cactus" id="cactus"></div>
             
-            <!-- شاشة البداية / إعادة المحاولة -->
-            <div class="game-message" id="gameMessage">
-                <h2>لعبة الديناصور</h2>
-                <p>اضغط مسافة أو انقر في أي مكان بالشاشة للبدء والقفز</p>
-                <button id="startBtn">ابدأ اللعبة</button>
+            <!-- Ergaa Jalqabaa (Game Message) -->
+            <div class="game-message hidden" id="gameMessage">
+                <button id="startBtn"></button>
             </div>
         </div>
     </div>
+
+    <!-- Theebii Jijjiiruu gama gadii bifa simiraatiin (Floating Theme Button) -->
+    <button id="themeToggleBtn" class="floating-theme-btn" title="تغيير الثيم">🌙</button>
 
     <script src="script.js"></script>
 </body>

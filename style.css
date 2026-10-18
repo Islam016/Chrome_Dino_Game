@@ -1,129 +1,90 @@
 :root {
     --bg-color: #f7f7f7;
     --text-color: #535353;
-    --board-line: #535353;
+    --muted: #8a8a8a;
 }
 
 body.dark-theme {
     --bg-color: #202124;
-    --text-color: #ffffff;
-    --board-line: #535353;
+    --text-color: #f1f1f1;
+    --muted: #9aa0a6;
+}
+
+/* Night mode inside the game also darkens the page, like the original. */
+body.light-theme.night {
+    --bg-color: #202124;
+    --text-color: #f1f1f1;
+}
+
+body.dark-theme.night {
+    --bg-color: #f7f7f7;
+    --text-color: #535353;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
+    font-family: 'Courier New', Courier, monospace;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    transition: background-color 0.2s;
+    transition: background-color 0.6s ease, color 0.6s ease;
     overflow: hidden;
 }
 
 .game-container {
     width: 100%;
-    max-width: 800px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    max-width: 600px;
+    padding: 0 16px;
 }
 
-/* Score board, styled like the original */
-.score-board {
-    display: flex;
-    gap: 15px;
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-    color: var(--text-color);
-}
-
-/* Game board */
-.game-board {
-    position: relative;
+#game {
+    display: block;
     width: 100%;
-    height: 150px;
-    overflow: hidden;
-    border-bottom: 2px solid var(--board-line);
+    aspect-ratio: 4 / 1;
+    image-rendering: pixelated;
     touch-action: none;
     cursor: pointer;
+    outline: none;
 }
 
-/* Dino */
-.dino {
-    position: absolute;
-    bottom: 0;
-    left: 40px;
-    width: 44px;
-    height: 47px;
-    will-change: transform;
-    background-image: url('dino.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 2;
+.hint {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
 }
 
-/* Cactus: positioned by JavaScript with transform */
-.cactus {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 34px;
-    will-change: transform;
-    height: 50px;
-    background-image: url('cactus.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 1;
+kbd {
+    display: inline-block;
+    padding: 0 5px;
+    border: 1px solid var(--muted);
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 11px;
 }
 
-/* Game over / restart overlay */
-.game-message {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-}
-
-.game-message button {
-    width: 36px;
-    height: 32px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32"><path fill="%23535353" d="M18 5V0L12 6l6 6V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H8c0 5.52 4.48 10 10 10s10-4.48 10-10-4.48-10-10-10zm-2 10h2v-4h-2v4zm0 6h2v-2h-2v2z"/></svg>');
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-body.dark-theme .game-message button {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32"><path fill="%23ffffff" d="M18 5V0L12 6l6 6V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H8c0 5.52 4.48 10 10 10s10-4.48 10-10-4.48-10-10-10zm-2 10h2v-4h-2v4zm0 6h2v-2h-2v2z"/></svg>');
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* Floating theme toggle */
-.floating-theme-btn {
+.floating-buttons {
     position: fixed;
     bottom: 20px;
     right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.floating-btn {
     background: var(--text-color);
     color: var(--bg-color);
     border: none;
@@ -135,11 +96,24 @@ body.dark-theme .game-message button {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    z-index: 1000;
-    transition: transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.6s ease;
 }
 
-.floating-theme-btn:hover {
+.floating-btn:hover {
     transform: scale(1.1);
+}
+
+.floating-btn:focus-visible {
+    outline: 2px solid var(--muted);
+    outline-offset: 2px;
+}
+
+.touch-only {
+    display: none;
+}
+
+@media (pointer: coarse) {
+    .desktop-only { display: none; }
+    .touch-only { display: inline; }
 }

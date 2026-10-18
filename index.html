@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chrome Dino Game - Original Style</title>
+    <title>Chrome Dino Game</title>
+    <meta name="description" content="A remake of the Chrome offline dinosaur game in vanilla HTML, CSS and JavaScript, with dark mode and touch support.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="light-theme">
 
     <div class="game-container">
-        <!-- Sarara Qabxii (Score Board) akka Google -->
+        <!-- Score board -->
         <div class="score-board">
             <div class="score-item"><span id="high-score">HI 00000</span></div>
             <div class="score-item"><span id="score">00000</span></div>
         </div>
 
-        <!-- Tiyaatira Taphaa (Game Board) -->
+        <!-- Game board -->
         <div class="game-board" id="gameBoard">
             <!-- Dino -->
             <div class="dino" id="dino"></div>
             <!-- Cactus -->
             <div class="cactus" id="cactus"></div>
             
-            <!-- Ergaa Jalqabaa (Game Message) -->
-            <div class="game-message hidden" id="gameMessage">
-                <button id="startBtn"></button>
+            <!-- Start / game over overlay -->
+            <div class="game-message" id="gameMessage">
+                <button id="startBtn" aria-label="ابدأ اللعب"></button>
             </div>
         </div>
     </div>
 
-    <!-- Theebii Jijjiiruu gama gadii bifa simiraatiin (Floating Theme Button) -->
-    <button id="themeToggleBtn" class="floating-theme-btn" title="تغيير الثيم">🌙</button>
+    <!-- Floating theme toggle -->
+    <button id="themeToggleBtn" class="floating-theme-btn" title="تغيير الثيم" aria-label="تغيير الثيم">🌙</button>
 
     <script src="script.js"></script>
 </body>

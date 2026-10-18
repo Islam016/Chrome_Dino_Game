@@ -39,7 +39,7 @@ body {
     align-items: flex-end;
 }
 
-/* Qabxii (Score) akka Google */
+/* Score board, styled like the original */
 .score-board {
     display: flex;
     gap: 15px;
@@ -50,14 +50,14 @@ body {
     color: var(--text-color);
 }
 
-/* Tiyaatira Taphaa */
+/* Game board */
 .game-board {
     position: relative;
     width: 100%;
     height: 150px;
     overflow: hidden;
     border-bottom: 2px solid var(--board-line);
-    touch-action: manipulation;
+    touch-action: none;
     cursor: pointer;
 }
 
@@ -68,29 +68,20 @@ body {
     left: 40px;
     width: 44px;
     height: 47px;
+    will-change: transform;
     background-image: url('dino.png');
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 2;
 }
 
-/* Qilleensa/Utubaa (Jump) */
-.jump {
-    animation: jumpAnimation 0.42s cubic-bezier(0.45, 0, 0.55, 1);
-}
-
-@keyframes jumpAnimation {
-    0% { bottom: 0; }
-    50% { bottom: 85px; }
-    100% { bottom: 0; }
-}
-
-/* Cactus - مظبوط تماماً على خط الأرض بدون فراغات */
+/* Cactus: positioned by JavaScript with transform */
 .cactus {
     position: absolute;
     bottom: 0;
-    left: 800px;
+    left: 0;
     width: 34px;
+    will-change: transform;
     height: 50px;
     background-image: url('cactus.png');
     background-size: contain;
@@ -98,16 +89,7 @@ body {
     z-index: 1;
 }
 
-.moving-cactus {
-    animation: moveCactus 1.4s infinite linear;
-}
-
-@keyframes moveCactus {
-    0% { left: 800px; }
-    100% { left: -50px; }
-}
-
-/* Ergaa Taphaa (Game Over / Restart Icon) */
+/* Game over / restart overlay */
 .game-message {
     position: absolute;
     top: 0;
@@ -137,7 +119,7 @@ body.dark-theme .game-message button {
     display: none !important;
 }
 
-/* Theebii Jijjiiruu (Floating Theme Button gadi fageenya fuulichaatti argamu) */
+/* Floating theme toggle */
 .floating-theme-btn {
     position: fixed;
     bottom: 20px;
